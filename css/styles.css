@@ -1,0 +1,2190 @@
+/* ==========================================================
+   ALEX CUMPLE 8 · V5
+   Cáele.mx
+========================================================== */
+
+
+/* ==========================================================
+   1. TOKENS
+========================================================== */
+
+:root {
+    color-scheme: dark;
+
+    --navy-950: #00152f;
+    --navy-900: #001d42;
+    --navy-800: #08295c;
+
+    --blue: #3268ec;
+    --blue-dark: #174092;
+
+    --coral: #ff6547;
+
+    --cream: #ffe5ae;
+    --yellow: #ffbd2e;
+    --green: #29a760;
+
+    --white: #ffffff;
+
+    --font-display:
+        "Arial Rounded MT Bold",
+        "Trebuchet MS",
+        system-ui,
+        sans-serif;
+
+    --font-body:
+        "Trebuchet MS",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    --content-width: 68rem;
+
+    --page-gutter:
+        clamp(1.15rem,
+            5vw,
+            3rem);
+
+    --section-space:
+        clamp(4rem,
+            12vw,
+            7rem);
+
+    --transition:
+        180ms ease;
+}
+
+
+/* ==========================================================
+   2. RESET
+========================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    min-block-size: 100dvh;
+
+    overflow-x: hidden;
+
+    color: var(--cream);
+
+    background: var(--navy-950);
+
+    font-family: var(--font-body);
+
+    -webkit-font-smoothing: antialiased;
+
+    text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+    display: block;
+}
+
+img {
+    max-inline-size: 100%;
+    block-size: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    margin: 0;
+    padding: 0;
+
+    color: inherit;
+    background: transparent;
+
+    border: 0;
+
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+p {
+    margin-block-start: 0;
+}
+
+
+/* ==========================================================
+   3. ACCESSIBILITY
+========================================================== */
+
+:focus-visible {
+    outline:
+        0.18rem solid var(--yellow);
+
+    outline-offset: 0.25rem;
+}
+
+.sr-only {
+    position: absolute;
+
+    inline-size: 0.0625rem;
+    block-size: 0.0625rem;
+
+    margin: -0.0625rem;
+    padding: 0;
+
+    overflow: hidden;
+
+    clip: rect(0 0 0 0);
+
+    white-space: nowrap;
+
+    border: 0;
+}
+
+
+/* ==========================================================
+   4. GLOBAL LAYERS
+========================================================== */
+
+.invitation {
+    position: relative;
+
+    isolation: isolate;
+
+    min-block-size: 100dvh;
+
+    overflow-x: clip;
+
+    background:
+        var(--navy-950);
+}
+
+
+/*
+ * Every real content container is deliberately above
+ * the global streamer layer.
+ */
+
+.page-container {
+    position: relative;
+
+    z-index: 10;
+
+    inline-size:
+        min(calc(100% - (var(--page-gutter) * 2)),
+            var(--content-width));
+
+    margin-inline: auto;
+}
+
+/* ==========================================================
+   5. STREAMERS
+========================================================== */
+
+.streamers {
+    position: fixed;
+
+    inset: 0;
+
+    /*
+     * Decorative background layer.
+     */
+    z-index: 2;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+
+.streamer {
+    --streamer-x: 50%;
+    --streamer-size: 1;
+    --streamer-duration: 30s;
+    --streamer-drift: 4rem;
+    --streamer-rotation: 0deg;
+
+    position: absolute;
+
+    inset-block-start: -46rem;
+
+    inset-inline-start:
+        var(--streamer-x);
+
+    inline-size:
+        calc(3.6rem * var(--streamer-size));
+
+    block-size:
+        calc(40rem * var(--streamer-size));
+
+    /*
+     * Solid coral.
+     */
+    opacity: 1;
+
+    color:
+        var(--coral);
+
+    pointer-events: none;
+
+    will-change:
+        transform;
+
+    animation:
+        streamer-fall var(--streamer-duration) linear infinite;
+}
+
+
+.streamer svg {
+    inline-size: 100%;
+    block-size: 100%;
+
+    overflow: visible;
+}
+
+
+.streamer path {
+    fill: none;
+
+    stroke:
+        currentColor;
+
+    stroke-width:
+        0.36rem;
+
+    stroke-linecap:
+        round;
+
+    stroke-linejoin:
+        round;
+}
+
+
+@keyframes streamer-fall {
+
+    0% {
+        transform:
+            translate3d(0,
+                -40vh,
+                0) rotate(var(--streamer-rotation));
+    }
+
+    30% {
+        transform:
+            translate3d(var(--streamer-drift),
+                30vh,
+                0) rotate(calc(var(--streamer-rotation) + 70deg));
+    }
+
+    65% {
+        transform:
+            translate3d(calc(var(--streamer-drift) * -0.65),
+                90vh,
+                0) rotate(calc(var(--streamer-rotation) + 180deg));
+    }
+
+    100% {
+        transform:
+            translate3d(calc(var(--streamer-drift) * 0.35),
+                155vh,
+                0) rotate(calc(var(--streamer-rotation) + 300deg));
+    }
+
+}
+
+/* ==========================================================
+   6. MUSIC
+========================================================== */
+
+.music-toggle {
+    position: fixed;
+
+    inset-block-start:
+        clamp(0.9rem,
+            4vw,
+            1.4rem);
+
+    inset-inline-end:
+        clamp(0.9rem,
+            4vw,
+            1.4rem);
+
+    z-index: 100;
+
+    display: grid;
+
+    place-items: center;
+
+    inline-size:
+        clamp(3rem,
+            12vw,
+            3.8rem);
+
+    aspect-ratio: 1;
+
+    color:
+        var(--navy-950);
+
+    background:
+        var(--coral);
+
+    border:
+        0.14rem solid var(--navy-950);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0.55rem 1.4rem rgb(0 0 0 / 24%);
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+
+.music-toggle:hover {
+    transform:
+        translateY(-0.1rem) rotate(3deg);
+
+    box-shadow:
+        0 0.75rem 1.7rem rgb(0 0 0 / 30%);
+}
+
+
+.music-toggle svg {
+    inline-size: 44%;
+
+    fill: currentColor;
+}
+
+
+.music-toggle__pause {
+    display: none;
+}
+
+
+.music-toggle[aria-pressed="true"] .music-toggle__play {
+    display: none;
+}
+
+
+.music-toggle[aria-pressed="true"] .music-toggle__pause {
+    display: block;
+}
+
+
+/* ==========================================================
+   7. HERO
+========================================================== */
+
+.hero {
+    position: relative;
+
+    overflow: clip;
+
+    background:
+        radial-gradient(circle at 50% 22%,
+            var(--navy-800),
+            var(--navy-950) 62%);
+}
+
+
+.hero__container {
+    padding-block:
+        clamp(7rem,
+            19vw,
+            10rem) clamp(2rem,
+            6vw,
+            3.5rem);
+
+    text-align: center;
+}
+
+
+/* ==========================================================
+   8. HERO DECORATION
+========================================================== */
+
+.hero-decoration {
+    pointer-events: none;
+}
+
+
+.shape {
+    position: absolute;
+
+    z-index: 3;
+}
+
+
+.shape--green-corner {
+    inset-block-start: -7rem;
+    inset-inline-start: -6rem;
+
+    inline-size:
+        clamp(10rem,
+            40vw,
+            18rem);
+
+    aspect-ratio: 1;
+
+    background:
+        var(--green);
+
+    border-radius:
+        46% 54% 68% 32% / 55% 41% 59% 45%;
+
+    transform:
+        rotate(22deg);
+}
+
+
+.shape--blue-square {
+    inset-block-start: 12%;
+    inset-inline-start: 11%;
+
+    inline-size:
+        clamp(2.5rem,
+            11vw,
+            4rem);
+
+    aspect-ratio: 1;
+
+    background:
+        var(--blue);
+
+    transform:
+        rotate(-13deg);
+}
+
+
+.shape--yellow-star {
+    inset-block-start: 9%;
+    inset-inline-end: 15%;
+
+    inline-size:
+        clamp(3rem,
+            13vw,
+            5rem);
+
+    aspect-ratio: 1;
+
+    background:
+        var(--yellow);
+
+    clip-path:
+        polygon(50% 0,
+            61% 35%,
+            98% 35%,
+            68% 57%,
+            79% 100%,
+            50% 73%,
+            21% 100%,
+            32% 57%,
+            2% 35%,
+            39% 35%);
+}
+
+
+.shape--coral-dot {
+    inset-block-start: 24%;
+    inset-inline-end: 9%;
+
+    inline-size:
+        clamp(1.3rem,
+            5vw,
+            2rem);
+
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    background:
+        var(--coral);
+}
+
+
+.shape--green-confetti {
+    inset-block-start: 16%;
+    inset-inline-end: 27%;
+
+    inline-size:
+        clamp(2rem,
+            8vw,
+            3rem);
+
+    block-size:
+        clamp(0.7rem,
+            3vw,
+            1rem);
+
+    background:
+        var(--green);
+
+    transform:
+        rotate(16deg);
+}
+
+
+.shape--blue-dot {
+    inset-block-start: 52%;
+    inset-inline-start: 10%;
+
+    inline-size:
+        clamp(1rem,
+            5vw,
+            1.7rem);
+
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    background:
+        var(--blue);
+}
+
+
+.shape--coral-ticket {
+    inset-block-start: 70%;
+    inset-inline-start: 12%;
+
+    inline-size:
+        clamp(2.3rem,
+            10vw,
+            3.5rem);
+
+    block-size:
+        clamp(1.4rem,
+            6vw,
+            2rem);
+
+    background:
+        var(--coral);
+
+    transform:
+        rotate(-8deg);
+
+    clip-path:
+        polygon(0 10%,
+            78% 0,
+            100% 50%,
+            78% 100%,
+            0 90%);
+}
+
+
+/* ==========================================================
+   9. HERO TYPE
+========================================================== */
+
+.hero__eyebrow {
+    position: relative;
+
+    z-index: 10;
+
+    margin:
+        0 0 clamp(1.6rem,
+            6vw,
+            2.5rem);
+
+    text-transform: uppercase;
+
+    letter-spacing:
+        0.33em;
+
+    font-size:
+        clamp(0.7rem,
+            3vw,
+            1rem);
+
+    font-weight: 800;
+}
+
+
+.hero__copy {
+    position: relative;
+
+    z-index: 10;
+}
+
+
+.hero__name,
+.hero__age {
+    margin: 0;
+
+    font-family:
+        var(--font-display);
+
+    font-weight: 900;
+
+    line-height: 0.86;
+
+    letter-spacing:
+        -0.055em;
+}
+
+
+.hero__name {
+    font-size:
+        clamp(5.5rem,
+            29vw,
+            12rem);
+}
+
+
+.hero__age {
+    margin-block-start:
+        clamp(0.4rem,
+            2vw,
+            0.9rem);
+
+    font-size:
+        clamp(3.7rem,
+            19vw,
+            8rem);
+}
+
+
+.hero__tagline {
+    margin:
+        clamp(1.5rem,
+            6vw,
+            2.5rem) 0 0;
+
+    font-size:
+        clamp(0.95rem,
+            4vw,
+            1.4rem);
+
+    font-weight: 700;
+
+    letter-spacing:
+        0.05em;
+}
+
+
+.hero__tagline span {
+    margin-inline: 0.22em;
+
+    color:
+        var(--coral);
+}
+
+
+/* ==========================================================
+   10. HERO ART
+========================================================== */
+
+.hero-art {
+    position: relative;
+
+    inline-size: 100%;
+
+    aspect-ratio:
+        1.35 / 1;
+
+    margin-block-start:
+        clamp(1rem,
+            5vw,
+            2.5rem);
+}
+
+
+.hero-art__blob {
+    position: absolute;
+
+    z-index: 1;
+
+    inset-block:
+        4% 0;
+
+    inset-inline:
+        38% -18%;
+
+    background:
+        linear-gradient(145deg,
+            #3f74f8,
+            var(--blue));
+
+    border-radius:
+        55% 45% 50% 50% / 47% 43% 57% 53%;
+}
+
+
+.hero-art__kangaroo {
+    position: absolute;
+
+    z-index: 3;
+
+    inset-inline-end: 5%;
+
+    inset-block-end: 5%;
+
+    inline-size:
+        clamp(9rem,
+            30vw,
+            14rem);
+
+    max-block-size: 86%;
+
+    object-fit: contain;
+}
+
+
+.hero-art__foreground {
+    position: absolute;
+
+    z-index: 4;
+
+    inset-inline-end: -8%;
+
+    inset-block-end: -3%;
+
+    inline-size: 72%;
+
+    block-size: 12%;
+
+    background:
+        var(--blue);
+
+    border-radius:
+        58% 42% 0 0 / 100% 100% 0 0;
+
+    transform:
+        rotate(-2deg);
+}
+
+
+/* ==========================================================
+   11. SCROLL CUE
+========================================================== */
+
+.scroll-cue {
+    position: relative;
+
+    z-index: 10;
+
+    display: grid;
+
+    justify-items: center;
+
+    gap: 0.45rem;
+
+    inline-size: fit-content;
+
+    margin:
+        clamp(0.5rem,
+            2vw,
+            1rem) auto 0;
+
+    text-transform: uppercase;
+
+    letter-spacing:
+        0.2em;
+
+    font-size:
+        clamp(0.68rem,
+            3vw,
+            0.85rem);
+
+    font-weight: 800;
+}
+
+
+.scroll-cue svg {
+    inline-size: 2rem;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+
+    animation:
+        scroll-bounce 1.7s ease-in-out infinite;
+}
+
+
+@keyframes scroll-bounce {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(0.45rem);
+    }
+
+}
+
+
+/* ==========================================================
+   12. TRAMPOLINE
+========================================================== */
+
+.trampoline {
+    position: relative;
+
+    z-index: 3;
+
+    block-size:
+        clamp(8rem,
+            27vw,
+            14rem);
+
+    overflow: hidden;
+
+    background:
+        var(--navy-950);
+}
+
+
+.trampoline__rim {
+    position: absolute;
+
+    inset-inline: -7%;
+    inset-block-start: 0;
+
+    block-size: 42%;
+
+    border-block-start:
+        clamp(2rem,
+            7vw,
+            3.8rem) solid var(--blue);
+
+    border-radius:
+        50% 50% 0 0;
+}
+
+
+.trampoline__net {
+    position: absolute;
+
+    inset-inline: -3%;
+    inset-block-start: 27%;
+
+    block-size: 84%;
+
+    background:
+        repeating-linear-gradient(27deg,
+            transparent 0,
+            transparent 1.35rem,
+            var(--blue-dark) 1.4rem,
+            var(--blue-dark) 1.68rem),
+        repeating-linear-gradient(-27deg,
+            transparent 0,
+            transparent 1.35rem,
+            var(--blue-dark) 1.4rem,
+            var(--blue-dark) 1.68rem);
+
+    clip-path:
+        ellipse(60% 76% at 50% 0);
+}
+
+
+/* ==========================================================
+   13. EVENT
+========================================================== */
+
+.event-section {
+    position: relative;
+
+    padding-block:
+        clamp(3rem,
+            9vw,
+            5rem) clamp(4rem,
+            12vw,
+            7rem);
+
+    background:
+        var(--navy-950);
+}
+
+
+/* ==========================================================
+   14. EVENT DATE
+========================================================== */
+
+.event-date {
+    container-type: inline-size;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 40%) minmax(0, 60%);
+
+    align-items: center;
+
+    gap:
+        clamp(0.75rem,
+            3vw,
+            2rem);
+
+    inline-size: 100%;
+}
+
+
+.event-date__day {
+    min-inline-size: 0;
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        clamp(6.5rem,
+            30cqi,
+            15rem);
+
+    font-weight: 900;
+
+    line-height: 0.76;
+
+    letter-spacing:
+        -0.09em;
+
+    white-space: nowrap;
+}
+
+
+.event-date__meta {
+    min-inline-size: 0;
+
+    display: grid;
+
+    align-content: center;
+}
+
+
+.event-date__month {
+    min-inline-size: 0;
+
+    margin: 0;
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        clamp(1.55rem,
+            5.7cqi,
+            4rem);
+
+    font-weight: 900;
+
+    line-height: 0.96;
+
+    letter-spacing:
+        -0.025em;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+.event-date__month span {
+    display: block;
+
+    margin-block-start: 0.12em;
+}
+
+
+.event-date__time {
+    display: flex;
+
+    align-items: center;
+
+    gap:
+        clamp(0.45rem,
+            2vw,
+            0.7rem);
+
+    margin:
+        clamp(1rem,
+            4vw,
+            1.8rem) 0 0;
+
+    font-size:
+        clamp(0.68rem,
+            2.4cqi,
+            1.05rem);
+
+    font-weight: 800;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+.event-date__time svg {
+    inline-size:
+        clamp(1.4rem,
+            5cqi,
+            2rem);
+
+    flex: 0 0 auto;
+
+    fill: none;
+
+    stroke:
+        var(--coral);
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+.event-date__time strong {
+    color:
+        var(--coral);
+}
+
+
+/* ==========================================================
+   15. LOCATION
+========================================================== */
+
+.event-location {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap:
+        clamp(0.7rem,
+            3vw,
+            1rem);
+
+    margin-block-start:
+        clamp(2.5rem,
+            8vw,
+            4rem);
+
+    padding-block:
+        clamp(1rem,
+            4vw,
+            1.5rem);
+
+    padding-inline: 0.5rem;
+
+    border-block:
+        0.12rem solid var(--coral);
+
+    font-size:
+        clamp(0.82rem,
+            3.3vw,
+            1.2rem);
+
+    font-weight: 800;
+
+    line-height: 1.4;
+
+    text-align: center;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.025em;
+}
+
+
+.event-location svg {
+    inline-size:
+        clamp(2rem,
+            8vw,
+            2.8rem);
+
+    flex: 0 0 auto;
+
+    fill: none;
+
+    stroke:
+        var(--coral);
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+/* ==========================================================
+   16. COUNTDOWN SECTION
+========================================================== */
+
+.countdown-section {
+    position: relative;
+
+    overflow: clip;
+
+    padding-block:
+        var(--section-space);
+
+    background:
+        linear-gradient(180deg,
+            #07285e,
+            var(--navy-950));
+}
+
+
+.countdown-section__title {
+    margin:
+        0 0 clamp(2.5rem,
+            8vw,
+            4rem);
+
+    text-align: center;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.2em;
+
+    font-size:
+        clamp(1.4rem,
+            6vw,
+            2.6rem);
+
+    font-weight: 900;
+}
+
+
+/* ==========================================================
+   17. COUNTDOWN
+========================================================== */
+
+.countdown {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,
+            minmax(0, 1fr));
+
+    gap:
+        clamp(0.25rem,
+            1.5vw,
+            1rem);
+}
+
+
+.countdown__item {
+    min-inline-size: 0;
+
+    text-align: center;
+}
+
+
+.countdown__item strong {
+    display: block;
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        clamp(2.6rem,
+            11vw,
+            6rem);
+
+    line-height: 0.9;
+
+    letter-spacing:
+        -0.05em;
+}
+
+
+.countdown__item span {
+    display: block;
+
+    margin-block-start: 0.75rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+
+    font-size:
+        clamp(0.6rem,
+            2.8vw,
+            0.95rem);
+
+    font-weight: 800;
+}
+
+
+/* ==========================================================
+   18. RSVP
+========================================================== */
+
+.rsvp-ticket {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap:
+        clamp(0.8rem,
+            4vw,
+            1.5rem);
+
+    inline-size:
+        min(100%,
+            32rem);
+
+    min-block-size:
+        clamp(7rem,
+            28vw,
+            10rem);
+
+    margin:
+        clamp(3.5rem,
+            10vw,
+            5rem) auto 0;
+
+    padding:
+        clamp(1.5rem,
+            6vw,
+            2.5rem);
+
+    overflow: hidden;
+
+    color:
+        var(--navy-950);
+
+    background:
+        var(--coral);
+
+    border-radius: 1rem;
+
+    box-shadow:
+        0 0.7rem 1.8rem rgb(0 0 0 / 18%);
+
+    transform:
+        rotate(-2deg);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+
+.rsvp-ticket:hover {
+    transform:
+        rotate(-1deg) translateY(-0.2rem);
+
+    box-shadow:
+        0 0.9rem 2rem rgb(0 0 0 / 24%);
+}
+
+
+.rsvp-ticket::before,
+.rsvp-ticket::after {
+    content: "";
+
+    position: absolute;
+
+    inset-block-start: 50%;
+
+    inline-size: 2rem;
+
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    background:
+        var(--navy-950);
+
+    transform:
+        translateY(-50%);
+}
+
+
+.rsvp-ticket::before {
+    inset-inline-start: -1rem;
+}
+
+
+.rsvp-ticket::after {
+    inset-inline-end: -1rem;
+}
+
+
+.rsvp-ticket__icon {
+    inline-size:
+        clamp(3rem,
+            13vw,
+            4.7rem);
+
+    flex: 0 0 auto;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+.rsvp-ticket__label {
+    display: grid;
+
+    text-align: start;
+
+    text-transform: uppercase;
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        clamp(1.45rem,
+            6.5vw,
+            2.6rem);
+
+    line-height: 1;
+}
+
+
+/* ==========================================================
+   19. QUICK ACTIONS
+========================================================== */
+
+.quick-actions {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap:
+        clamp(0.75rem,
+            4vw,
+            2rem);
+
+    margin-block-start:
+        clamp(3rem,
+            10vw,
+            5rem);
+}
+
+
+.quick-action {
+    display: grid;
+
+    justify-items: center;
+
+    gap: 0.8rem;
+
+    min-inline-size: 0;
+
+    cursor: pointer;
+}
+
+
+.quick-action__icon {
+    display: grid;
+
+    place-items: center;
+
+    inline-size:
+        clamp(4rem,
+            18vw,
+            7rem);
+
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    transition:
+        transform var(--transition);
+}
+
+
+.quick-action:hover .quick-action__icon {
+    transform:
+        translateY(-0.25rem) rotate(3deg);
+}
+
+
+.quick-action__icon svg {
+    inline-size: 47%;
+
+    fill: none;
+
+    stroke:
+        var(--navy-950);
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+.quick-action--map .quick-action__icon {
+    background:
+        var(--green);
+}
+
+
+.quick-action--calendar .quick-action__icon {
+    background:
+        var(--yellow);
+}
+
+
+.quick-action--share .quick-action__icon {
+    background:
+        var(--blue);
+}
+
+
+.quick-action__label {
+    text-align: center;
+
+    text-transform: uppercase;
+
+    font-size:
+        clamp(0.6rem,
+            2.8vw,
+            0.9rem);
+
+    font-weight: 800;
+
+    letter-spacing: 0.05em;
+}
+
+
+/* ==========================================================
+   20. DRESS CODE
+========================================================== */
+
+.dress-code {
+    position: relative;
+
+    overflow: clip;
+
+    padding-block:
+        clamp(2rem,
+            7vw,
+            4rem);
+
+    background:
+        var(--navy-950);
+}
+
+.dress-code__panel {
+    position: relative;
+
+    /*
+     * The entire blue component sits ABOVE
+     * the global streamer background.
+     *
+     * This also fixes the stacking context created
+     * by clip-path.
+     */
+    z-index: 3;
+
+    overflow: hidden;
+
+    padding-block:
+        clamp(5rem,
+            15vw,
+            8rem);
+
+    background:
+        linear-gradient(130deg,
+            #3974f6,
+            var(--blue));
+
+    clip-path:
+        polygon(0 8%,
+            17% 3%,
+            42% 7%,
+            69% 4%,
+            100% 0,
+            100% 91%,
+            80% 96%,
+            52% 98%,
+            28% 94%,
+            0 100%);
+}
+
+.dress-code__container {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) minmax(7rem, 0.85fr);
+
+    align-items: center;
+
+    gap:
+        clamp(1rem,
+            5vw,
+            3rem);
+}
+
+
+.dress-code__copy {
+    min-inline-size: 0;
+}
+
+
+.dress-code__copy p {
+    margin: 0;
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        clamp(1.45rem,
+            6.6vw,
+            3rem);
+
+    font-weight: 800;
+
+    line-height: 1.27;
+}
+
+
+.dress-code__art {
+    min-inline-size: 0;
+}
+
+
+.dress-code__art img {
+    inline-size: 100%;
+
+    max-block-size: 20rem;
+
+    object-fit: contain;
+}
+
+
+/* ==========================================================
+   21. CLOSING
+========================================================== */
+
+.closing {
+    position: relative;
+
+    overflow: clip;
+
+    padding-block:
+        clamp(4rem,
+            12vw,
+            7rem);
+
+    background:
+        var(--navy-950);
+}
+
+
+.closing__container {
+    display: grid;
+
+    gap:
+        clamp(2rem,
+            7vw,
+            4rem);
+}
+
+
+.closing__copy h2 {
+    margin: 0;
+
+    max-inline-size: 35rem;
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        clamp(3rem,
+            12vw,
+            6rem);
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+}
+
+
+.closing__copy h2 span {
+    display: block;
+
+    font-size: 0.67em;
+}
+
+
+/* ==========================================================
+   22. CLOSING ART
+========================================================== */
+
+.closing-art {
+    position: relative;
+
+    inline-size: 100%;
+
+    aspect-ratio:
+        1.4 / 1;
+}
+
+
+.closing-art__blob {
+    position: absolute;
+
+    z-index: 1;
+
+    inset-block:
+        2% -8%;
+
+    inset-inline:
+        25% -16%;
+
+    background:
+        var(--green);
+
+    border-radius:
+        56% 44% 48% 52% / 50% 44% 56% 50%;
+}
+
+
+.closing-art__star {
+    position: absolute;
+
+    z-index: 2;
+
+    inset-inline-start: 5%;
+
+    inset-block-start: 20%;
+
+    color:
+        var(--yellow);
+
+    font-size:
+        clamp(4rem,
+            17vw,
+            8rem);
+
+    transform:
+        rotate(-13deg);
+}
+
+
+.closing-art__kangaroo {
+    position: absolute;
+
+    z-index: 3;
+
+    inset-inline-end: 9%;
+
+    inset-block-end: 6%;
+
+    inline-size:
+        clamp(9rem,
+            33vw,
+            15rem);
+
+    max-block-size: 84%;
+
+    object-fit: contain;
+}
+
+
+.closing-art__foreground {
+    position: absolute;
+
+    z-index: 4;
+
+    inset-inline-end: -8%;
+
+    inset-block-end: -4%;
+
+    inline-size: 75%;
+
+    block-size: 12%;
+
+    background:
+        var(--green);
+
+    border-radius:
+        58% 42% 0 0 / 100% 100% 0 0;
+
+    transform:
+        rotate(1deg);
+}
+
+
+/* ==========================================================
+   23. TICKER
+========================================================== */
+
+.jump-ticker {
+    position: relative;
+
+    z-index: 20;
+
+    overflow: hidden;
+
+    padding-block:
+        clamp(1rem,
+            3vw,
+            1.5rem);
+
+    background:
+        #071126;
+}
+
+
+.jump-ticker__viewport {
+    inline-size: 100%;
+
+    overflow: hidden;
+
+    border-block:
+        0.08rem solid rgb(255 255 255 / 10%);
+
+    background:
+        rgb(255 255 255 / 2%);
+}
+
+
+.jump-ticker__track {
+    display: flex;
+
+    inline-size: max-content;
+
+    will-change: transform;
+
+    animation:
+        ticker-scroll 26s linear infinite;
+}
+
+
+.jump-ticker__group {
+    display: flex;
+
+    flex: 0 0 auto;
+
+    align-items: center;
+
+    gap:
+        clamp(1.6rem,
+            5vw,
+            3.2rem);
+
+    padding-block:
+        clamp(1rem,
+            3vw,
+            1.35rem);
+
+    padding-inline:
+        clamp(1.5rem,
+            5vw,
+            3rem);
+}
+
+
+.ticker-text {
+    flex: 0 0 auto;
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        clamp(1.1rem,
+            4vw,
+            1.7rem);
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    text-transform: uppercase;
+}
+
+
+.ticker-text--blue {
+    color:
+        #4381ff;
+}
+
+
+.ticker-text--coral {
+    color:
+        #ff5158;
+}
+
+
+.ticker-text--green {
+    color:
+        #1fc486;
+}
+
+
+.ticker-text--yellow {
+    color:
+        var(--yellow);
+}
+
+
+.ticker-star {
+    flex: 0 0 auto;
+
+    color:
+        rgb(255 255 255 / 38%);
+
+    font-size:
+        clamp(0.8rem,
+            2.5vw,
+            1.1rem);
+}
+
+
+@keyframes ticker-scroll {
+
+    from {
+        transform:
+            translate3d(0,
+                0,
+                0);
+    }
+
+    to {
+        transform:
+            translate3d(-50%,
+                0,
+                0);
+    }
+
+}
+
+
+/* ==========================================================
+   24. FOOTER
+========================================================== */
+
+.site-footer {
+    position: relative;
+
+    z-index: 20;
+
+    padding-block:
+        clamp(3rem,
+            10vw,
+            5rem);
+
+    background:
+        #000f25;
+
+    border-block-start:
+        0.07rem solid rgb(255 255 255 / 10%);
+}
+
+
+.site-footer__container {
+    display: grid;
+
+    justify-items: center;
+
+    gap: 0.9rem;
+
+    text-align: center;
+}
+
+
+.site-footer__developed {
+    margin: 0;
+
+    color:
+        rgb(255 229 174 / 68%);
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.22em;
+
+    font-size:
+        clamp(0.62rem,
+            2.5vw,
+            0.75rem);
+}
+
+
+.site-footer__brand {
+    display: block;
+
+    inline-size:
+        clamp(7.5rem,
+            28vw,
+            11rem);
+
+    transition:
+        transform var(--transition);
+}
+
+
+.site-footer__brand:hover {
+    transform:
+        scale(1.04);
+}
+
+
+.site-footer__brand img {
+    inline-size: 100%;
+}
+
+
+.site-footer__copy {
+    max-inline-size: 20rem;
+
+    margin: 0;
+
+    color:
+        rgb(255 229 174 / 58%);
+
+    font-size: 0.78rem;
+
+    line-height: 1.5;
+}
+
+
+/* ==========================================================
+   25. SMALL PHONES
+========================================================== */
+
+@media (max-width: 24rem) {
+
+    .hero__name {
+        font-size:
+            clamp(5rem,
+                27vw,
+                6rem);
+    }
+
+
+    .hero__age {
+        font-size:
+            clamp(3.35rem,
+                17vw,
+                4.2rem);
+    }
+
+
+    .event-date {
+        grid-template-columns:
+            minmax(0, 38%) minmax(0, 62%);
+    }
+
+
+    .event-date__day {
+        font-size:
+            clamp(5.8rem,
+                28cqi,
+                7.5rem);
+    }
+
+
+    .event-date__month {
+        font-size:
+            clamp(1.35rem,
+                5.2cqi,
+                1.8rem);
+    }
+
+
+    .event-date__time {
+        font-size:
+            clamp(0.58rem,
+                2.2cqi,
+                0.75rem);
+    }
+
+
+    .quick-action__label {
+        font-size: 0.56rem;
+    }
+
+}
+
+
+/* ==========================================================
+   26. TABLET
+========================================================== */
+
+@media (min-width: 48rem) {
+
+    .hero-art {
+        aspect-ratio:
+            1.8 / 1;
+    }
+
+
+    .hero-art__blob {
+        inset-inline-start: 54%;
+    }
+
+
+    .hero-art__kangaroo {
+        inline-size:
+            clamp(11rem,
+                21vw,
+                16rem);
+    }
+
+
+    .hero-art__foreground {
+        inline-size: 58%;
+    }
+
+
+    .event-date {
+        grid-template-columns:
+            minmax(0, 40%) minmax(0, 60%);
+    }
+
+
+    .dress-code__container {
+        grid-template-columns:
+            minmax(0, 1.15fr) minmax(12rem, 0.85fr);
+    }
+
+
+    .closing__container {
+        grid-template-columns:
+            minmax(0, 1fr) minmax(20rem, 0.9fr);
+
+        align-items: center;
+    }
+
+
+    .closing-art {
+        aspect-ratio:
+            1 / 1;
+    }
+
+}
+
+
+/* ==========================================================
+   27. DESKTOP
+========================================================== */
+
+@media (min-width: 70rem) {
+
+    .hero__name {
+        font-size: 12rem;
+    }
+
+
+    .hero__age {
+        font-size: 7.5rem;
+    }
+
+
+    .hero-art {
+        max-inline-size: 58rem;
+
+        margin-inline: auto;
+    }
+
+
+    .event-date__day {
+        font-size:
+            clamp(10rem,
+                25cqi,
+                15rem);
+    }
+
+
+    .event-date__month {
+        font-size:
+            clamp(3rem,
+                5.7cqi,
+                4rem);
+    }
+
+
+    .closing__copy h2 {
+        font-size: 5.5rem;
+    }
+
+}
+
+
+/* ==========================================================
+   28. REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+
+    .streamers {
+        display: none;
+    }
+
+
+    .jump-ticker__track {
+        animation: none;
+    }
+
+
+    *,
+    *::before,
+    *::after {
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+
+        scroll-behavior:
+            auto !important;
+    }
+
+}
