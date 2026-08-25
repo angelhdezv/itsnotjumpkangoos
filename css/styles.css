@@ -435,8 +435,8 @@ h1, h2, p { margin: 0; }
 .dress-code img { width: 100%; max-height: 13rem; object-fit: contain; transform: rotate(-4deg); filter: drop-shadow(0 .35rem .35rem rgb(0 0 0 / 10%)); }
 
 /* CLOSING */
-.closing { position: relative; z-index: auto; overflow: hidden; min-height: 36rem; padding: 4.35rem 0 0; background: var(--navy); }
-.closing__container { max-width: 53rem; }
+.closing { --closing-height: 36rem; --closing-padding-top: 4.35rem; position: relative; z-index: auto; overflow: hidden; min-height: var(--closing-height); padding: var(--closing-padding-top) 0 0; background: var(--navy); }
+.closing__container { min-height: calc(var(--closing-height) - var(--closing-padding-top)); max-width: 53rem; }
 .closing h2 { position: relative; z-index: 10; max-width: min(94%, 38rem); font-family: var(--font-display); font-size: clamp(2.25rem, 11vw, 6rem); font-weight: 800; line-height: .88; text-transform: uppercase; transform: rotate(-1.25deg); transform-origin: left center; }
 .closing h2 span { display: block; font-size: .67em; }
 .closing__burst { position: absolute; z-index: 10; top: .4rem; left: -.8rem; width: 2.2rem; height: 2rem; border-top: .34rem solid var(--coral); transform: rotate(-42deg); }
@@ -487,7 +487,7 @@ h1, h2, p { margin: 0; }
     .rsvp-ticket { margin-block: 5rem 5rem; padding: 1.8rem 2rem; }
     .quick-actions { gap: 2rem; }
     .dress-code__panel { padding-block: 6.5rem; }
-    .closing { min-height: 40rem; padding-top: 6rem; }
+    .closing { --closing-height: 40rem; --closing-padding-top: 6rem; }
     .closing__art { right: -2rem; bottom: -5rem; }
     .closing__art img { top: -25%; bottom: auto; left: 21%; width: 48%; }
     .closing__star { top: auto; bottom: 3.25rem; left: 2%; }
@@ -502,7 +502,7 @@ h1, h2, p { margin: 0; }
     .event-location { align-items: flex-start; font-size: .95rem; }
     .quick-action > span:last-child { font-size: .82rem; }
     .dress-code__container { grid-template-columns: minmax(0, 1.15fr) minmax(6rem, .85fr); }
-    .closing { min-height: 34rem; }
+    .closing { --closing-height: 34rem; }
     .closing h2 { font-size: 2.15rem; }
     .closing__star { top: 13.5rem; }
     .closing__art { right: -2.75rem; width: 18rem; }
