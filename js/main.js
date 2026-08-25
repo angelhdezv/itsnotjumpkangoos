@@ -70,8 +70,8 @@ const buildRibbonPath = (points) => {
 
 const buildBranchPath = (start, end, center) => {
     const settle = {
-        x: center.x + (end.x - center.x) * 0.45,
-        y: center.y + (end.y - center.y) * 0.54,
+        x: center.x + (end.x - center.x),
+        y: center.y + (end.y - center.y),
     };
 
     return buildRibbonPath([start, center, settle, end]);
