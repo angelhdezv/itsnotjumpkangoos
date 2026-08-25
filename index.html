@@ -41,6 +41,22 @@
 
 
         <!-- =====================================================
+         RIBBON
+    ====================================================== -->
+
+        <div class="ribbon" data-ribbon aria-hidden="true">
+
+            <svg class="ribbon__svg" data-ribbon-svg preserveAspectRatio="none">
+                <g data-ribbon-paths></g>
+            </svg>
+
+            <div class="ribbon__nodes" data-ribbon-nodes></div>
+
+        </div>
+
+
+
+        <!-- =====================================================
          MUSIC
     ====================================================== -->
 
@@ -73,7 +89,7 @@
              HERO
         ================================================== -->
 
-            <section class="hero">
+            <section class="hero" data-ribbon-anchor>
 
 
                 <div class="hero-decoration" aria-hidden="true">
@@ -143,11 +159,12 @@
 
                     <div class="hero-art" aria-hidden="true">
 
-                        <div class="hero-art__blob"></div>
+                        <div class="hero-art__blob" data-parallax-speed="0.16"></div>
 
 
-                        <img class="hero-art__kangaroo" src="./assets/images/canguro-amarillo.svg" alt="" width="1024"
-                            height="1536" fetchpriority="high" decoding="async">
+                        <img class="hero-art__kangaroo" data-parallax-speed="-0.1"
+                            src="./assets/images/canguro-amarillo.svg" alt="" width="1024" height="1536"
+                            fetchpriority="high" decoding="async">
 
 
                         <div class="hero-art__foreground"></div>
@@ -179,7 +196,7 @@
              TRAMPOLINE
         ================================================== -->
 
-            <div class="trampoline" aria-hidden="true">
+            <div class="trampoline" aria-hidden="true" data-ribbon-anchor>
 
                 <div class="trampoline__rim"></div>
 
@@ -193,7 +210,7 @@
              EVENT
         ================================================== -->
 
-            <section id="event" class="event-section" aria-labelledby="event-title">
+            <section id="event" class="event-section" aria-labelledby="event-title" data-ribbon-anchor>
 
                 <div class="page-container">
 
@@ -347,7 +364,7 @@
 
                     <!-- RSVP -->
 
-                    <a class="rsvp-ticket" data-rsvp href="#">
+                    <a class="rsvp-ticket" data-rsvp href="#" data-ribbon-anchor data-ribbon-fork>
 
                         <svg class="rsvp-ticket__icon" viewBox="0 0 24 24" aria-hidden="true">
 
@@ -383,11 +400,11 @@
 
                     <!-- ACTIONS -->
 
-                    <div class="quick-actions">
+                    <div class="quick-actions" data-ribbon-anchor data-ribbon-merge>
 
 
-                        <a class="quick-action quick-action--map" data-maps-link href="#" target="_blank"
-                            rel="noopener noreferrer">
+                        <a class="quick-action quick-action--map" data-maps-link data-ribbon-loop href="#"
+                            target="_blank" rel="noopener noreferrer">
 
                             <span class="quick-action__icon">
 
@@ -415,7 +432,8 @@
 
 
 
-                        <button class="quick-action quick-action--calendar" type="button" data-calendar>
+                        <button class="quick-action quick-action--calendar" type="button" data-calendar
+                            data-ribbon-loop>
 
                             <span class="quick-action__icon">
 
@@ -448,7 +466,8 @@
 
 
 
-                        <button class="quick-action quick-action--share" type="button" data-share>
+                        <button class="quick-action quick-action--share" type="button" data-share
+                            data-ribbon-loop>
 
                             <span class="quick-action__icon">
 
@@ -484,7 +503,7 @@
              DRESS CODE
         ================================================== -->
 
-            <section class="dress-code">
+            <section class="dress-code" data-ribbon-anchor>
 
                 <div class="dress-code__panel">
 
@@ -521,7 +540,7 @@
              CLOSING
         ================================================== -->
 
-            <section class="closing">
+            <section class="closing" data-ribbon-anchor>
 
                 <div class="page-container closing__container">
 
@@ -544,7 +563,7 @@
 
                     <div class="closing-art" aria-hidden="true">
 
-                        <div class="closing-art__blob"></div>
+                        <div class="closing-art__blob" data-parallax-speed="0.16"></div>
 
 
                         <span class="closing-art__star">
@@ -552,8 +571,8 @@
                         </span>
 
 
-                        <img class="closing-art__kangaroo" src="./assets/images/canguro-amarillo.svg" alt=""
-                            loading="lazy" decoding="async">
+                        <img class="closing-art__kangaroo" data-parallax-speed="-0.1"
+                            src="./assets/images/canguro-amarillo.svg" alt="" loading="lazy" decoding="async">
 
 
                         <div class="closing-art__foreground"></div>
