@@ -1,0 +1,16 @@
+{
+  "name": "itsnotjumpkangoos",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "devDependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.13.5",
+    "tailwindcss": "^3.4.17"
+  }
+}

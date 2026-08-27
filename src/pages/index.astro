@@ -1,0 +1,72 @@
+---
+import '../styles/styles.css';
+import Hero from '../components/Hero.astro';
+import EventDetails from '../components/EventDetails.astro';
+import CountdownActions from '../components/CountdownActions.astro';
+import AdditionalInstructions from '../components/AdditionalInstructions.astro';
+import ClosingGreeting from '../components/ClosingGreeting.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<!doctype html>
+<html lang="es-MX">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Alex cumple 8 | Invitación</title>
+    <meta name="description" content="¡Alex cumple 8! Ven a brincar, jugar y celebrar con nosotros.">
+    <meta name="theme-color" content="#001733">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="author" content="Cáele.mx">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Caveat:wght@600;700&family=Patrick+Hand&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+</head>
+
+<body>
+    <div class="invitation" data-event-title="Alex cumple 8" data-event-start="2026-09-12T16:00:00-06:00"
+        data-event-end="2026-09-12T19:00:00-06:00" data-event-location="Jump Kangoos Pizza · Morelia"
+        data-maps-url="https://www.google.com/maps/search/?api=1&query=Jump%20Kangoos%20Pizza%20Morelia"
+        data-rsvp-number="52XXXXXXXXXX">
+
+        <audio id="background-music" loop preload="metadata">
+            <source src="/assets/audio/background-music.mp3" type="audio/mpeg">
+        </audio>
+
+        <button id="music-toggle" class="music-toggle" type="button" aria-label="Reproducir música"
+            aria-pressed="false">
+            <svg class="music-toggle__play" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 5v14l10-7z" />
+            </svg>
+            <svg class="music-toggle__pause" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 5h4v14H7zM14 5h4v14h-4z" />
+            </svg>
+        </button>
+
+        <div class="ribbon" data-ribbon aria-hidden="true">
+            <svg class="ribbon__svg" data-ribbon-svg preserveAspectRatio="none">
+                <g data-ribbon-paths></g>
+            </svg>
+            <div class="ribbon__nodes" data-ribbon-nodes></div>
+        </div>
+
+        <main>
+            <Hero />
+            <EventDetails />
+            <CountdownActions />
+            <AdditionalInstructions />
+            <ClosingGreeting />
+        </main>
+
+        <SiteFooter />
+
+        <p id="action-status" class="sr-only" aria-live="polite"></p>
+    </div>
+    <script src="../scripts/main.js"></script>
+</body>
+
+</html>
